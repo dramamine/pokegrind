@@ -1,0 +1,343 @@
+7/26 Post for theSylphRoad
+
+Hi! Long-time reader, first-time poster. I ran some statistical analysis on the pure grindy aspects of Pokemon Go, and made a video about it here:
+
+
+
+I thought y'all would find this an interesting thought exercise - like what if I just sit on lure spots, and collect random pokemon forever. It also gives you a baseline for gameplay. Like, if the game takes 2400 hours if you're grinding encounters, then...
+- how much time does Candy save? (30-50%, watch the video!!)
+- what if radar was more accurate and you could farm an area "3 steps" away instead of just "1 step (around a lure spot)"?
+- how much time does trading save you?
+
+
+
+
+
+7/24 Scripting
+--------------
+
+Hi! Like you, I've been having a lot of fun with Pokemon Go - getting out my house, exploring my neighborhood, meeting new people. That's great, but all I really care about is catching 'em all. So what I end up doing instead of going on adventures is, I sit on a Pokestop at home, and use lures and incense to get Pokemon to come to me, and hope that I get some new Pokemon.
+
+So I started wondering, if I just sit here grinding all day, how long is it going to take to complete my Pokedex?
+
+Now, I'm not here to complain about the current state of the game. I'm a patient gamer, and I know that eventually we'll have features like in-person trading and accurate Pokeradar to help you find every last Pokemon.
+
+What I WANT to do, is use math, to PROVE that if you don't go outside, you're going to get bored, frustrated, and addicted.
+
+
+** Coupons
+
+Completing your Pokedex is an example of something called the "Coupon Collector's Problem."
+A simple example: say there's a box of cereal that contains a toy inside.
+There's some number of toys, each with an equal chance of appearing in a given box.
+We want to predict how many boxes of cereal we'll have to buy to collect all the the toys.
+
+Let's say there's 10 toys we're trying to collect.
+
+The first box you open, you DEFINITELY get a new toy!
+The second box you open, there's a 90% chance you get a new toy!
+
+But by the time you have 9 toys, you'll probably have to open up to 10 boxes of cereal before you find the last toy.
+
+
+So, you might get extremely lucky and buy only 10 boxes and have all 10 toys. But the chance of that happening is (1/10)^10 (1 in 10 billion)
+
+About half the time, you'll be opening 30 boxes of cereal, but it may very well take you 50 boxes of cereal to complete your set. 
+
+The problem gets more complicated if the items you're collecting DON'T have an equal chance of appearing: for example, the Monopoly game at McDonald's. The way that works is, you're trying to collect 2 or 3 properties, but one of the coupons is very rare. The math for that game isn't very interesting. It's just a lottery, and you need to buy millions of happy meals to have any chance of winning a big prize.
+
+
+Anyway, to model Pokemon Go in terms of the coupon collector's problem, the first thing I needed was a list of the probabilities that each Pokemon would appear. I found a website where some players started recording all of their random encounters - taking a statistical survey, if you will. This information is from the beta, but it's still in the ballpark of what's happening today.
+
+
+
+For our model of Pokemon Go, let's make the following HUGE ASSUMPTIONS:
+first, your location is pseudo-random, or, any Pokemon can appear anywhere. This means that every encounter has some chance of being one of the rare Pokemon we're looking for. For your location to be perfectly random IN REAL LIFE, you'd have to randomly explore the world and try to get a good mix of terrains and weather. But essentially, if you're playing the game at home, at work, on your commute, and in your favorite neighborhoods, your locations are practically random compared to other players. There's a lot to debate about this assumption, but just bear with me.
+
+This model also assumes that you ONLY catch Pokemon from random encounters, so you can't use eggs or evolution. Also, we're ignoring legendary Pokemon that can't appear randomly.
+
+We're also ignoring the fact that each Pokemon has a chance to flee, and a chance that you won't capture a Pokemon you want.
+
+With those assumptions in place, I wrote some code to simulate random encounters, and I ran hundreds of thousands of trials to find out how many random encounters you'd need to complete your Pokedex. 
+
+
+It turns out that you need tens of thousands of random encounters before you have any chance of completing your Pokedex. In half of the trials, the Pokedex was complete by the time we'd gone through 42,000 encounters. The average number of encounters was 48,000, and the unluckiest 5% of trials went through 120,000 encounters and STILL hadn't completed their set. 
+
+Let's assume that you find a random encounter every 3 minutes, which is about the rate I get when I sit at a Pokestop with a lure module. In that case, we're talking about THOUSANDS of hours of time investment to finish your collection. 
+
+Just to give you some insight into what's happening in these trials: say you've completed half your Pokedex, so you've probably been through 500-800 random encounters. At that point, you'll need to triple or quadruple your time investment to get your Pokedex to 75% completion.
+
+ Then at that point, you'll need to triple or quadruple your time investment AGAIN to get your Pokedex to 94 % completion! The goalposts keep getting further and further away.
+
+Just to give you a real-world example of this, I saw this post on Reddit from this guy who's one of the first players to hit level 30. He was complaining that he'd been through over 4000 encounters and still hadn't seen some Pokemon. Well, that's just how the math works! If you've ONLY been through 4000 encounters, then you've probably only seen 120-130 Pokemon total. 4000 encounters just isn't that many in this game! 
+
+
+
+  * we need to make the assumption that you have a reasonable chance of catching rare Pokemon
+- you ONLY catch Pokemon from random encounters
+- all your capture attempts are successful
+
+** Results **
+
+** Candies ** 
+- your location is pseudo-random, or, any Pokemon can appear anywhere.
+  * we need to make the assumption that you have a reasonable chance of catching rare Pokemon
+- you ONLY catch Pokemon from random encounters
+- all your capture attempts are successful
+- only the earliest evolution state of a Pokemon can spawn
+
+
+Running through this model, I found that you'll need an average of 25,000 encounters to complete your Pokedex. This model is about 30-50% faster overall, but it's still going to take you hundreds, if not thousands of hours to complete. 
+
+
+
+
+But Marten, you might say, nobody's really playing like this! Just sitting at their desks for hours, waiting for random encounters, hoping that they get lucky and complete their Pokedex?
+
+Well, they are! I saw this survey of players that showed that while people play Pokemon Go with many goals in mind, the top goal of them all was to catch all the Pokemon! And people figured out that sitting on lure modules in populated areas is the best way to find rare Pokemon!
+
+
+
+
+
+
+Now, note that this model only reflects the CURRENT STATE OF THE GAME, and that Niantic is working on features to fix this grindfest. Once Pokeradar works better, you'll be able to seek out speCIFIC Pokemon for your collection. People are impatient for this feature, so you can see there are already phone apps and wesites like pokevision.com to fill in this knowledge gap.
+
+Plus, once in-person trading is implemented, your odds of completing your Pokedex will be millions of times better! The CEO of Niantic even said in an interview that without trading, you'd basically have to spend a year traveling to world to catch em all.
+
+ 
+
+But Marten, you might say, Pokemon games have ALWAYS involved grind and random numbers. It's true, but as the generations have gone on, they've been gradually reMOVING the grindy aspects of the game. By 6th gen, grinding random encounters is super easy because of the Pokeradar feature. Plus if you can't get a Pokemon you need by normal means - like through breeding, evolution, trading, battling, or using items - you can use features like Friend Safari or GTS to seek out the EXACT Pokemon you want. In Sun & Moon, they're even going to remove grinding for IVs, which is a HUGE time sink if you're trying to bettle competitively. Not to mention that there's such a huge variety of activities in the gameboy games that you can just switch tasks when you get bored of egg-hatching
+
+
+
+I guess what bothers me the most about all this math is that RIGHT NOW in Pokemon Go, grinding is rewarded more than adventuring. It's actually a major game design flaw that the optimal way to play the game doesn't match up with the most fun way to play.
+
+It's really frustrating and even dangerous that they would release the game without these features. The gameplay of random encounters is so purely addictive that I KNOW some people are going to grind for hundreds of hours. I haven't even mentioned Skinner boxes yet, but look this stuff up! It's psychologically addictive! Plus, everyone is playing this game, so your GRINDING is socially reinforced! I mean, don't YOU want to be the first person in your friends group to complete your Pokedex?
+
+Well, I'm here to tell you that you don't. What you want to do is wait until these features have been added so that completing your Pokedex is actually fun.
+
+Trust me, you'll thank me later.
+
+
+
+
+
+
+Reddit Text
+-----------
+
+
+
+Hi!
+
+I made some statistical models of the RNG in Pokemon Go.
+Through random encounters alone, with a random-ish location, you will experience, on average, 48,000 encounters before you have seen every Pokemon.
+
+Graphs and code here:
+http://github.com/dramamine/pokegrind
+
+I see people complaining about the game being simple & getting boring. That's because grinding sucks, and the RNG in this game requires SO MUCH GRINDING to complete your Pokedex. It's impossible to play the game with purpose when features like trading and directional Pokeradar are missing.
+
+
+Post-editing
+------------
+
+<-- from models 
+
+Now, these are just models, and they don't reflect even a fraction of the knowledge about this game. I hope this video is obsolete by the time you're watching this - maybe right now, you can google "how to catch a Ditto" and plan an adventure for yourself. But right now, catching em all is nearly impossible without trading, better poke-radar, spawn maps, or local chat.
+
+So for now, the way people are playing this game, and WILL be playing the game for hundreds of hours, is essentially random! At a large enough scale, your workplace, your home, your daily commute, and the places you end up wandering, are all essentially random. And grinding those spots isn't fun.
+
+So, is it my fault, for trying to play optimally even though it's not fun? No! It's a major game design flaw when the optimal way to play a game isn't ALSO the most fun way to play the game. It's like when you got penalized for running fast in Sonic. Or when spawn camping is the best strategy in shooters.
+
+
+
+--> into survey
+
+
+
+Sorry if this video comes off as overly negative, it's just that I'm a very patient gamer, and I know that this game will be good some day. It's just depressing to me that the social phenomenon happening right now, which is AMAZING, is based on a game, in its current form, that is so abusive to its customers.
+
+Thanks for listening to me rant. If you code, please check out my github page, I have a lot more Pokemon math there.
+
+
+-- re-doing gameboy games
+In the Pokemon gameboy games, they've been slowly removing grinding mechanics each generation because grinding random encounters isn't fun. By 6th gen, you could basically use Internet trades, Pokeradar, Friend Safaris, breeding, and leveling to get a specific Pokemon in less than an hour of work.
+
+
+
+Post- filming
+-------------
+
+
+
+
+
+
+
+
+Now you can measure how broken it is.
+Like, say we've got in-game trading. I bet you could beat the game in 100 hours of active playing, no problem.
+
+Instead, they released a game that people have to play for 2400 hours.
+
+That's just irresponsible and disappointing
+
+
+I really think people will play obsessively like this, for 1000 hours if that's what it takes. Because when you're playing the game, you don't notice the time you're losing.
+
+
+
+There's a third way of having fun with Pokemon Go, and that's figuring out the math. I love digging into the math of the Gameboy games, and MMO economies are COOL
+
+You know, I love digging into the math of the Gameboy games
+I think MMO economies are COOL
+So I'm just trying to have fun 
+
+
+
+
+
+
+
+
+
+Original
+--------
+
+So, I was sitting at my desk at work, playing Pokemon Go as I'm on top of a lure spot.
+Grinding, if you will.
+I saw a lot of Pidgeys, a lot of Zubats, and every once in awhile, something rare like a Magmar would pop up.
+But then, I started wondering,
+If I just sit here grinding, how long is it going to take me to complete my Pokedex?
+
+Well!
+
+Completing your Pokedex is an example of something called the "Coupon Collector's Problem."
+A simple example: say there's a box of cereal that contains a toy inside.
+There's 10 toys, each with a 10% chance of being in a given box.
+How many boxes of cereal do you need to buy to guarantee that you'll collect all 10 toys?
+
+The first box you open, you get a new toy!
+The second box you open, you probably (90%) get a new toy!
+
+But by the time you have 9 toys, it'll probably take you 10 more boxes of cereal before you find that missing toy.
+
+
+So, you might get extremely lucky and buy only 10 boxes and have all 10 toys. But the chance of that happening is (1/10)^10 (1 in 10 billion)
+
+But about half the time, you'll be opening 30 boxes of cereal.
+
+There are more complicated examples of this, like the Monopoly game at McDonald's. The way that works is, you're trying to collect 2 or 3 of some coupon, but one of the coupons is very rare. The jackpot prize with the best odds, for example: you have a 1 in 15,000,000 to win a pair of plane tickets.
+So that game SUCKS
+
+Speaking of SUCKS, let's try to model out Pokemon Go in terms of the coupon collector's problem. So, let's ignore the fact that Pokemon spawn in location-specific areas for a second, and imagine that every Pokemon can spawn anywhere at any time. And let's imagine that you catch every Pokemon you encounter - no Pokemon ever flee, no running out of Pokeballs, no server issues.
+
+If that was how the game worked, how long would it take you to complete your Pokedex?
+
+WELL. To figure this out, I took some data from this site, where some data gods have been counting the appearances of each Pokemon, and they created a table of the rarity of each Pokemon. So, according to this data, you'll find a Caterpie in about 1 in 50 encounters. Rare Pokemon like Charizard and Ditto, you'll only see about 1 in 25,000 encounters.
+
+https://poke-assistant.herokuapp.com/main/pokemonstats
+
+I wrote some code to simulate this game, and ran it 250,000 times. Here's what I found:
+
+It turns out that you'll need to catch about 42,000 Pokemon just to have a 50% chance of completing your Pokedex. Most people playing this game will average about 48,000 Pokemon. An unlucky 5% of players will catch 102,000 Pokemon, and still won't have a complete set!
+
+Do you know how long that would take? WELL.
+Let's say that you can catch a Pokemon every 3 minutes, which is about how many Pokemon I can catch when I'm camping out at a lure spot. At that rate, it's going to take you an average of 2444 hours of grinding to complete our Pokedex.
+
+
+
+Okay. That sounds pretty bad, but that's not really how Pokemon Go works, right? Let's try another experiment. In the game, instead of searching for rare Pokemon like Charizard, you'll probably want to "farm" for Charmanders until you have enough candy to evolve one.
+
+So, let's imagine a simplified version of Pokemon Go, where only the lowest evolution of each Pokemon family can spawn. So, you have 74 Pokemon, and you need to evolve them into their second or third forms to complete your Pokedex.
+
+So. for a Pokemon with 3 evolutions like Gastly, we need 25 candies to evolve her into Haunter, then 100 candies to evolve her into Gengar. So we need 32 Gastlys to get one Haunter.
+32 x 3 = 96
+31 x 1 = 31
+         127
+
+
+
+
+The worst Pokemon here is Gyrados. You need 400 Magikarp candies to evolve this guy. So, practically speaking, to get a Gyrados in real life, you'll probaby want to find a spot to grind for Magikarps. Say you found a good location where Magikarps spawn 1 out of every 5 times, and you get a random encounter every 3 minutes. Well, you're going to have to grind for 25 HOURS to get all those Magikarps.
+
+
+Anyway, in this candy-centric model of the game, I found that completing your Pokedex is easier - the average number of encounters is down to 25,000 from 48,000 before. However, we're still talking about thousands and thousands of random encounters to finish.
+
+
+I guess what 
+
+
+If you look at the 6th gen of Pokemon games, you'll see they had tons of features to help you find exactly the Pokemon you're looking for. Whether you have to grind a specific location, or trade, or breed, or battle, or level up - you could basically get any non-legendary Pokemon you needed in about 30 minutes. The variety of tasks kept the task fresh.
+
+Pokemon Go could be like that. If the Pokeradar wasn't broken, you could walk straight to the Pokemon you want, instead of wandering around randomly, hoping that you see 3 steps turn into 2, then into 1.
+If Trading was implemented, all of a sudden your odds get millions of times better!
+
+The CEO of Niantic admitted as much in an interview where he said:
+"Pokémon trading is going to be huge. You can’t get all of them by yourself. If you want all of them you’ll have to trade with other players. Or you have to be someone who takes time off work and travels the world for a year. There may be people who do that."
+
+http://www.siliconera.com/2015/12/18/niantic-explains-how-pokmon-go-came-to-be-locations-and-item-distribution/
+
+ But until then, you're encouraged to grind. Grinding is the optimal strategy, and that's a major game flaw - when the optimal strategy for a game should be the most fun way to play the game!
+
+ I get it, You want to be the very best. And how cool would it be to be the first person in the world to complete their Pokedex? Or even the first person in your friends group?
+
+ But actually, you don't! You gotta wait until the game is GOOD.
+
+I made this video as a warning to new players and a reminder to seasoned gamers. So, here's what happens to you when you play grindy games. They're fun at the start, especialy as you're gaining levels rapidly, discovering new mechanics, getting cool stuff, etc. But eventually, maybe 3 months from now, maybe a year from now, you'll hit a point where you play all day long and you don't even find a new Pokemon. What you're doing is "like" fun, but you're mainly playing out of habit. You have trouble quitting because you've already invested so much time into the game, so you keep going.
+
+That's when you need to take a break.
+
+When you play this game, you need to remember what's good about it: the social aspect, the fact that the game universe is Planet Earth. What's not good, is the grind.
+
+
+
+Endgame Strategy
+- grind lure spots in interesting locations
+- if you live or work near Pokestops, you're a perfect candidate
+- what grinding lure spots entails, is
+  sign up to be interrupted every few minutes,
+  for as many hours as you can spare
+
+Is that good gameplay? Orrr...hell?
+
+
+People are gonna play this game
+
+Skinner boxes are super addictive!
+At some point, the fun of running into new people at gyms and pokestops will
+give way to the force of habit, and at that point you are Rattatas in a cage.
+If you're not having fun, just stop.
+
+I just imagine this dystopian future
+with 100 million Skinner box addicted humans
+who stop paying attention to politics,
+drop out of the economy,
+
+
+Skinner boxes are NOT what make video games great.
+Play good games instead.
+You know what?
+Next time you're at a pokestop, ask a nerd what are some GOOD video games.
+
+The game isn't ready for the attention it's getting. It's dangerous, actually!
+Once they add accurate & directional radar, local chat, and trade, the game opens up.
+People form impromptu groups every 15 minutes to look for a rare pokemon.
+You meet up with strangers to trade pokemon.
+It'll be awesome!
+But right now, it's just random numbers.
+
+I'm setting a world record.
+Lowest level character to QUIT
+
+5nowden out.
+
+
+
+I saw this guy on reddit complaining that he's seen over 4000 Pokemon but hasn't seen a bunch of them yet. Well guess what! That's just math!
+
+https://www.reddit.com/r/pokemongo/comments/4tapzl/one_of_the_1st_ppl_to_hit_level_30_my_impressions/
+
+
