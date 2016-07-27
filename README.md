@@ -19,4 +19,5 @@ https://poke-assistant.herokuapp.com/main/pokemonstats (from 0.23.1, the data he
 
 Want to dig deeper? Check out my Pokemon AI project here:
 https://github.com/dramamine/leftovers-again
+
 Demo: http://metal-heart.org.psim.us/
